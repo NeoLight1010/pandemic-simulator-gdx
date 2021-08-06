@@ -1,31 +1,43 @@
 package com.neolight.pandemic;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class PandemicSimulator extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+	public final static float WIDTH = 800f;
+	public final static float HEIGHT = WIDTH * (500f / 800f);
+
+	OrthographicCamera camera;
+	ShapeRenderer shape;
+
 	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+	public void create() {
+		camera = new OrthographicCamera();
+		shape = new ShapeRenderer();
+
+		camera.setToOrtho(false, WIDTH, HEIGHT);
 	}
 
 	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void render() {
+		ScreenUtils.clear(Color.WHITE);
+
+		camera.update();
+
+		shape.setProjectionMatrix(camera.combined);
+
+		shape.begin(ShapeType.Filled);
+		shape.setColor(Color.BLACK);
+		shape.circle(50, 50, 50);
+		shape.end();
 	}
-	
+
 	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+	public void dispose() {
+		shape.dispose();
 	}
 }
