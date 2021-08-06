@@ -21,16 +21,9 @@ public class PandemicSimulator extends ApplicationAdapter {
 
 	ArrayList<Person> people;
 
-	@Override
-	public void create() {
+	private void generateRandomPopulation(ArrayList<Person> people) {
 		Random random = new Random();
 
-		camera = new OrthographicCamera();
-		shape = new ShapeRenderer();
-
-		camera.setToOrtho(false, WIDTH, HEIGHT);
-
-		people = new ArrayList<Person>();
 		for (int i = 0; i < initialPopulation; i++) {
 			boolean isInfected = random.nextFloat() < initialInfectedRate;
 			float randomX = random.nextFloat() * WIDTH;
@@ -44,6 +37,18 @@ public class PandemicSimulator extends ApplicationAdapter {
 				people.add(healthy);
 			}
 		}
+	}
+
+	@Override
+	public void create() {
+
+		camera = new OrthographicCamera();
+		shape = new ShapeRenderer();
+
+		camera.setToOrtho(false, WIDTH, HEIGHT);
+
+		people = new ArrayList<Person>();
+		generateRandomPopulation(people);
 	}
 
 	@Override

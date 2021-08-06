@@ -17,7 +17,7 @@ public class Healthy extends Person {
 	void display(ShapeRenderer shape) {
 		shape.set(ShapeType.Filled);
 		shape.setColor(this.color);
-		shape.circle(this.x, this.y, 20);
+		shape.circle(this.x, this.y, 10);
 	}
 
 	void update(ArrayList<Person> people) {
